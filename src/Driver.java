@@ -3,9 +3,15 @@ import chem.Matrix;
 
 public class Driver {
     public static void main(String[] args){
+        /*TODO Add matrix ref to solve strat, solve with b (sort b in sort), use b in getAnsw,
+         try to remove set matrix, duplicate matrix so I am not modifying OG data
+         */
+        //TODO Add vector class?
+
         //TODO Clean up matrix/arraymatrix
         //TODO Add some test cases
         //TODO Convert input into matrix
+        //TODO Move matrix to another package
 
         ArrayMatrix matrix = new ArrayMatrix(3,4);
 
@@ -25,17 +31,17 @@ public class Driver {
         matrix.setValue(2,3,-2);
 
 
-        matrix.sort();
-        System.out.println(matrix);
+        //System.out.println(matrix);
 
         //matrix.solve(new float[3]);
-        matrix.gaussianElimination();
-        matrix.getAns();
+        //matrix.gaussianElimination();
+        //matrix.getAns();
 
+        matrix.solve(new float[matrix.getNumCols()]);
 
-        System.out.println();
+        //System.out.println();
 
-        System.out.println(matrix);
+        //System.out.println(matrix);
 
     }
 }

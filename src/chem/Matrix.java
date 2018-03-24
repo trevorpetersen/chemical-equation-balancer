@@ -5,5 +5,7 @@ public interface Matrix {
     void setValue(int i, int j, float value);
     int getNumRows();
     int getNumCols();
+    float[] getRow(int rowIndex);
     float[] solve(float[] b);
+    void setMatrix(float[][] newMatrix);
 }
