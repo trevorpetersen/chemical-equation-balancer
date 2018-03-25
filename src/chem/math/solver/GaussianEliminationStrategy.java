@@ -131,11 +131,6 @@ public class GaussianEliminationStrategy implements SolveStrategy {
             }
         }
 
-        System.out.println("Ans:");
-        for(int i = 0; i < numCols; i++){
-            System.out.println(ans[i]);
-        }
-
         return ans;
     }
 

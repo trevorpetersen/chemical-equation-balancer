@@ -64,7 +64,7 @@ public class InputParser {
         }
 
         if(subscriptIndex != -1){
-            subscript = Integer.parseInt(elementString.substring(subscript, elementString.length()));
+            subscript = Integer.parseInt(elementString.substring(subscriptIndex, elementString.length()));
             elementString = elementString.substring(0, subscriptIndex);
         }
 

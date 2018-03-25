@@ -23,9 +23,13 @@ public class Compound {
         return elements.contains(element);
     }
 
+    public List<Element> getAllElements(){
+        return elements;
+    }
+
     public Element getElement(Element element){
         for(int i = 0; i < elements.size(); i++){
-            if(elements.get(i) == element){
+            if(elements.get(i).equals(element)){
                 return elements.get(i);
             }
         }

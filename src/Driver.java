@@ -1,7 +1,10 @@
 import chem.ChemicalEquation;
+import chem.Compound;
 import chem.InputParser;
 import chem.math.ArrayMatrix;
+import chem.math.Matrix;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Driver {
@@ -23,8 +26,23 @@ public class Driver {
 
         ChemicalEquation chemicalEquation = inputParser.parseChemicalEquation(inputScanner.nextLine());
 
-        System.out.println(chemicalEquation);
+        Matrix matrix = chemicalEquation.toMatrix();
+        float[] ans = matrix.solve(new float[matrix.getNumCols()]);
 
+        List<Compound> reactants = chemicalEquation.getReactants();
+        List<Compound> products = chemicalEquation.getProducts();
+
+        for(int i = 0; i < reactants.size(); i++){
+            Compound compound = reactants.get(i);
+            compound.setCoefficient((int)ans[i]);
+        }
+
+        for(int i = 0; i < products.size(); i++){
+            Compound compound = products.get(i);
+            compound.setCoefficient((int)ans[reactants.size() + i]);
+        }
+
+        System.out.println(chemicalEquation);
 
         /*
 
