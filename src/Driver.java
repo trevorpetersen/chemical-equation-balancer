@@ -1,5 +1,8 @@
-import chem.ArrayMatrix;
-import chem.Matrix;
+import chem.ChemicalEquation;
+import chem.InputParser;
+import chem.math.ArrayMatrix;
+
+import java.util.Scanner;
 
 public class Driver {
     public static void main(String[] args){
@@ -12,6 +15,18 @@ public class Driver {
         //TODO Add some test cases
         //TODO Convert input into matrix
         //TODO Move matrix to another package
+
+        InputParser inputParser = new InputParser();
+        Scanner inputScanner = new Scanner(System.in);
+
+        System.out.print("Enter an equation: ");
+
+        ChemicalEquation chemicalEquation = inputParser.parseChemicalEquation(inputScanner.nextLine());
+
+        System.out.println(chemicalEquation);
+
+
+        /*
 
         ArrayMatrix matrix = new ArrayMatrix(3,4);
 
@@ -42,6 +57,7 @@ public class Driver {
         //System.out.println();
 
         //System.out.println(matrix);
+        */
 
     }
 }

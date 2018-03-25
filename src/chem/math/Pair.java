@@ -1,4 +1,4 @@
-package chem;
+package chem.math;
 
 public class Pair<T,S>{
     private T one;

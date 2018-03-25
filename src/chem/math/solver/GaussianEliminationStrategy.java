@@ -1,7 +1,7 @@
-package chem.solver;
+package chem.math.solver;
 
-import chem.Matrix;
-import chem.Pair;
+import chem.math.Matrix;
+import chem.math.Pair;
 
 import java.util.Arrays;
 import java.util.Comparator;

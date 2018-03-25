@@ -1,6 +1,6 @@
-package chem.solver;
+package chem.math.solver;
 
-import chem.Matrix;
+import chem.math.Matrix;
 
 public interface SolveStrategy {
     float[] solve(Matrix matrix, float[] b);

@@ -1,9 +1,7 @@
-package chem;
+package chem.math;
 
-import chem.solver.GaussianEliminationStrategy;
-import chem.solver.SolveStrategy;
-
-import java.util.*;
+import chem.math.solver.GaussianEliminationStrategy;
+import chem.math.solver.SolveStrategy;
 
 public class ArrayMatrix  implements Matrix {
     private int rows, cols;

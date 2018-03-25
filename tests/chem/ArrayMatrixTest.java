@@ -1,5 +1,6 @@
 package chem;
 
+import chem.math.ArrayMatrix;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

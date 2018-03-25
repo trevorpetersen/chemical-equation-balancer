@@ -1,4 +1,4 @@
-package chem;
+package chem.math;
 
 public interface Matrix {
     float getValue(int i, int j);
