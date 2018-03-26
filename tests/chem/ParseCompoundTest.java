@@ -78,9 +78,16 @@ public class ParseCompoundTest{
     }
 
     @Test
-    public void everythingTest(){
-        Compound compound = inputParser.parseCompound("NiB(Ag)1Br6(C(Ar3O)2)2");
+    public void repeatedElementTest(){
+        Compound compound = inputParser.parseCompound("C1C2");
 
-        assertEquals("1Ni1B1Ag1Br6C2Ar12O4", compound.toString());
+        assertEquals("1C3", compound.toString());
+    }
+
+    @Test
+    public void everythingTest(){
+        Compound compound = inputParser.parseCompound("NiB(Ag)1Br6(C(Ni4Ar3O)2)2");
+
+        assertEquals("1Ni17B1Ag1Br6C2Ar12O4", compound.toString());
     }
 }

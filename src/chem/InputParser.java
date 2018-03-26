@@ -77,7 +77,14 @@ public class InputParser {
         for(int i = 1; i < compoundString.length(); i++){
             if(Character.isUpperCase(compoundString.charAt(i))){
                 String elementString = compoundString.substring(start,i);
-                elements.add(parseElement(elementString));
+                Element element = parseElement(elementString);
+
+                if(elements.contains(element)){
+                    Element elementInList = getElementInList(element, elements);
+                    elementInList.setSubscript(elementInList.getSubscript() + element.getSubscript());
+                }else{
+                    elements.add(element);
+                }
 
                 start = i;
             }
@@ -85,7 +92,14 @@ public class InputParser {
 
 
         String elementString = compoundString.substring(start,compoundString.length());
-        elements.add(parseElement(elementString));
+        Element element = parseElement(elementString);
+
+        if(elements.contains(element)){
+            Element elementInList = getElementInList(element, elements);
+            elementInList.setSubscript(elementInList.getSubscript() + element.getSubscript());
+        }else{
+            elements.add(element);
+        }
 
         return new Compound(elements);
     }
