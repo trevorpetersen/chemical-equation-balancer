@@ -1,4 +1,4 @@
-package chem;
+package MatrixTests;
 
 import chem.math.ArrayMatrix;
 import org.junit.After;
@@ -61,11 +61,6 @@ public class ArrayMatrixTest {
 
     @Test
     public void solve2(){
-        //TODO Fix this one (divide answer by min)
-        if(1==1){
-            return;
-        }
-
         ArrayMatrix matrix = new ArrayMatrix(3,4);
 
         matrix.setValue(0,0,2);

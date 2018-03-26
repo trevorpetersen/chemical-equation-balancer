@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 public class Driver {
     public static void main(String[] args){
+        //TODO Handle compounds that have the same element repeated
         /*TODO Add matrix ref to solve strat, solve with b (sort b in sort), use b in getAnsw,
          try to remove set matrix, duplicate matrix so I am not modifying OG data
          */
@@ -27,6 +28,7 @@ public class Driver {
         ChemicalEquation chemicalEquation = inputParser.parseChemicalEquation(inputScanner.nextLine());
 
         Matrix matrix = chemicalEquation.toMatrix();
+        System.out.println(matrix);
         float[] ans = matrix.solve(new float[matrix.getNumCols()]);
 
         List<Compound> reactants = chemicalEquation.getReactants();

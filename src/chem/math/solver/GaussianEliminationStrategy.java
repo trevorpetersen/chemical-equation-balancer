@@ -138,18 +138,28 @@ public class GaussianEliminationStrategy implements SolveStrategy {
         int numRows = matrix.getNumRows();
         int numCols = matrix.getNumCols();
 
-        int mult = 1;
+        float mult = 1.0f;
         for(int i = 0; i < numRows; i++){
             int count = 1;
             while( (count * matrix.getValue(i,columnNum)) - (int)(count * matrix.getValue(i,columnNum)) != 0){
                 count++;
             }
-            if(mult % count != 0){
+
+            if(mult % count == 0){
+                continue;
+            }else if(count % mult == 0){
+                mult = count;
+            }else{
                 mult = mult * count;
             }
         }
 
-        return mult;
+        float mult2 = mult;
+        while(mult2 != Math.round(mult2)){
+            mult2 = mult2 + mult;
+        }
+
+        return (int)mult2;
     }
 
 }
