@@ -27,7 +27,7 @@ public class BalanceCheckerTest {
         // As4S6+O2=As4O6+SO2
         ChemicalEquation chemicalEquation = inputParser.parseChemicalEquation("As4S6+O2=As4O6+SO2");
         Matrix matrix = chemicalEquation.toMatrix();
-        float[] b = new float[matrix.getNumCols()];
+        float[] b = new float[matrix.getNumRows()];
 
         assertArrayEquals("",new float[]{1,9,1,6}, matrix.solve(b), 0);
     }
@@ -37,7 +37,7 @@ public class BalanceCheckerTest {
         // HgO=Hg+O2
         ChemicalEquation chemicalEquation = inputParser.parseChemicalEquation("HgO=Hg+O2");
         Matrix matrix = chemicalEquation.toMatrix();
-        float[] b = new float[matrix.getNumCols()];
+        float[] b = new float[matrix.getNumRows()];
 
         assertArrayEquals("",new float[]{2,2,1}, matrix.solve(b), 0);
     }
@@ -47,7 +47,7 @@ public class BalanceCheckerTest {
         // N2H4+O2=NO2+H2O
         ChemicalEquation chemicalEquation = inputParser.parseChemicalEquation("N2H4+O2=NO2+H2O");
         Matrix matrix = chemicalEquation.toMatrix();
-        float[] b = new float[matrix.getNumCols()];
+        float[] b = new float[matrix.getNumRows()];
 
         assertArrayEquals("",new float[]{1,3,2,2}, matrix.solve(b), 0);
     }
@@ -57,9 +57,39 @@ public class BalanceCheckerTest {
         // CaCl2+Na3PO4=Ca3(PO4)2+NaCl
         ChemicalEquation chemicalEquation = inputParser.parseChemicalEquation("CaCl2+Na3PO4=Ca3(PO4)2+NaCl");
         Matrix matrix = chemicalEquation.toMatrix();
-        float[] b = new float[matrix.getNumCols()];
+        float[] b = new float[matrix.getNumRows()];
 
-        assertArrayEquals("",new float[]{1,3,2,2}, matrix.solve(b), 0);
+        float[] myAns = matrix.solve(b);
+
+
+        assertArrayEquals("",new float[]{3,2,1,6}, myAns, 0);
+    }
+
+    @Test
+    public void test5(){
+        // Mg+O2=MgO
+        ChemicalEquation chemicalEquation = inputParser.parseChemicalEquation("Mg+O2=MgO");
+        Matrix matrix = chemicalEquation.toMatrix();
+        float[] b = new float[matrix.getNumRows()];
+
+        float[] myAns = matrix.solve(b);
+
+
+        assertArrayEquals("",new float[]{2,1,2}, myAns, 0);
+    }
+
+    @Test
+    public void test6(){
+        // Fe+H2O=Fe3O4+H2
+        ChemicalEquation chemicalEquation = inputParser.parseChemicalEquation("Fe+H2O=Fe3O4+H2");
+        Matrix matrix = chemicalEquation.toMatrix();
+        float[] b = new float[matrix.getNumRows()];
+
+        float[] myAns = matrix.solve(b);
+
+
+
+        //assertArrayEquals("",new float[]{2,1,2}, myAns, 0);
     }
 
 }

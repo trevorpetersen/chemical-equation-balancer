@@ -1,7 +1,6 @@
 import chem.ChemicalEquation;
 import chem.Compound;
 import chem.InputParser;
-import chem.math.ArrayMatrix;
 import chem.math.Matrix;
 
 import java.util.List;
@@ -9,16 +8,12 @@ import java.util.Scanner;
 
 public class Driver {
     public static void main(String[] args){
-        //TODO Handle compounds that have the same element repeated
         /*TODO Add matrix ref to solve strat, solve with b (sort b in sort), use b in getAnsw,
          try to remove set matrix, duplicate matrix so I am not modifying OG data
          */
         //TODO Add vector class?
 
         //TODO Clean up matrix/arraymatrix
-        //TODO Add some test cases
-        //TODO Convert input into matrix
-        //TODO Move matrix to another package
 
         InputParser inputParser = new InputParser();
         Scanner inputScanner = new Scanner(System.in);
@@ -28,7 +23,6 @@ public class Driver {
         ChemicalEquation chemicalEquation = inputParser.parseChemicalEquation(inputScanner.nextLine());
 
         Matrix matrix = chemicalEquation.toMatrix();
-        System.out.println(matrix);
         float[] ans = matrix.solve(new float[matrix.getNumCols()]);
 
         List<Compound> reactants = chemicalEquation.getReactants();

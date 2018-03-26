@@ -120,6 +120,20 @@ public class GaussianEliminationStrategy implements SolveStrategy {
         }
 
         for(int i = numRows - 1; i >= 0; i--){
+
+            //Skip past rows of all zero
+            boolean rowIsAllZeros = true;
+            for(int j = 0; j < numCols; j++){
+                if(matrix.getValue(i,j) != 0){
+                    rowIsAllZeros = false;
+                    break;
+                }
+            }
+            if(rowIsAllZeros){
+                continue;
+            }
+
+
             float sum = 0;
             for(int j = numCols - 1; j >= 0; j--){
                 if(ans[j] == -1){
