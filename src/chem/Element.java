@@ -17,6 +17,10 @@ public class Element {
         return subscript;
     }
 
+    public void setSubscript(int subscript){
+        this.subscript = subscript;
+    }
+
     @Override
     public String toString() {
         return name + subscript;

@@ -1,4 +1,4 @@
-package MatrixTests;
+package chem;
 
 import chem.ChemicalEquation;
 import chem.InputParser;

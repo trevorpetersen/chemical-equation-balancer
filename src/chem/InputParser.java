@@ -33,8 +33,45 @@ public class InputParser {
         return compounds;
     }
 
-    private Compound parseCompound(String compoundString) {
+    public Compound parseCompound(String compoundString) {
         List<Element> elements = new ArrayList<>();
+
+        if(compoundString.equals("")){
+            return null;
+        }
+
+        if(compoundString.contains("(")){
+            int openParenthesisIndex = compoundString.indexOf("(");
+            //int closingParenthesisIndex = getClosingParenthesisIndex(compoundString.substring(openParenthesisIndex));
+            int closingParenthesisIndex = getClosingParenthesisIndex(compoundString);
+
+            int endOfSubscriptIndex = closingParenthesisIndex + 1;
+
+            while(endOfSubscriptIndex + 1 < compoundString.length() && Character.isDigit(compoundString.charAt(endOfSubscriptIndex + 1))){
+                endOfSubscriptIndex++;
+            }
+
+            int mult = 1;
+            if(closingParenthesisIndex + 1 == endOfSubscriptIndex){
+                mult = Integer.parseInt(compoundString.charAt(closingParenthesisIndex + 1) + "");
+            }else{
+                mult = Integer.parseInt(compoundString.substring(closingParenthesisIndex + 1, endOfSubscriptIndex + 1));
+            }
+
+
+            Compound before = parseCompound(compoundString.substring(0,openParenthesisIndex));
+            Compound middle = parseCompound(compoundString.substring(openParenthesisIndex + 1, closingParenthesisIndex));
+            Compound after = parseCompound(compoundString.substring(endOfSubscriptIndex + 1));
+
+
+            for(Element element : middle.getAllElements()){
+                element.setSubscript(element.getSubscript() * mult);
+            }
+
+            Compound[] compounds = new Compound[]{before, middle, after};
+
+            return combineCompounds(compounds);
+        }
 
         int start = 0;
         for(int i = 1; i < compoundString.length(); i++){
@@ -51,6 +88,53 @@ public class InputParser {
         elements.add(parseElement(elementString));
 
         return new Compound(elements);
+    }
+
+    private int getClosingParenthesisIndex(String compoundString) {
+
+        int openParenthesisCount = 0;
+        for(int i = compoundString.indexOf("("); i < compoundString.length(); i++){
+            if(compoundString.charAt(i) == '('){
+                openParenthesisCount++;
+            }else if(compoundString.charAt(i) == ')'){
+                openParenthesisCount--;
+            }
+
+            if(openParenthesisCount == 0){
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    private Compound combineCompounds(Compound[] compounds) {
+        List<Element> elements = new ArrayList<>();
+
+        for(int i = 0; i < compounds.length; i++){
+            if(compounds[i] == null){
+                continue;
+            }
+            for(Element element : compounds[i].getAllElements()){
+                if(elements.contains(element)){
+                    Element elementInList = getElementInList(element, elements);
+                    elementInList.setSubscript(elementInList.getSubscript() + element.getSubscript());
+                }else{
+                    elements.add(element);
+                }
+            }
+        }
+
+        return new Compound(elements);
+    }
+
+    private Element getElementInList(Element target, List<Element> elements) {
+        for(Element element: elements){
+            if(element.equals(target)){
+                return element;
+            }
+        }
+        return null;
     }
 
     private Element parseElement(String elementString) {
