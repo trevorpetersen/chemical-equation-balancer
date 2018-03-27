@@ -77,19 +77,4 @@ public class BalanceCheckerTest {
 
         assertArrayEquals("",new float[]{2,1,2}, myAns, 0);
     }
-
-    @Test
-    public void test6(){
-        // Fe+H2O=Fe3O4+H2
-        ChemicalEquation chemicalEquation = inputParser.parseChemicalEquation("Fe+H2O=Fe3O4+H2");
-        Matrix matrix = chemicalEquation.toMatrix();
-        float[] b = new float[matrix.getNumRows()];
-
-        float[] myAns = matrix.solve(b);
-
-
-
-        //assertArrayEquals("",new float[]{2,1,2}, myAns, 0);
-    }
-
 }

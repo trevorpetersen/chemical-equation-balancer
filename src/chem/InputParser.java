@@ -15,14 +15,115 @@ public class InputParser {
         }
 
         String[] splitEquation = inputString.split("=");
+
+        if(splitEquation.length != 2){
+            return null;
+        }
+
         String[] reactantStrings = splitEquation[0].split("\\+");
         String[] productStrings = splitEquation[1].split("\\+");
+
+        boolean invalidReactants = stringArrayContainsInvalidString(reactantStrings);
+        boolean invalidProducts = stringArrayContainsInvalidString(productStrings);
+
+        if(invalidReactants || invalidProducts){
+            return null;
+        }
 
         List<Compound> reactants = parseCompounds(reactantStrings);
         List<Compound> products = parseCompounds(productStrings);
 
+        if(reactants == null || products == null){
+            return null;
+        }
+
+        if(isInvalidEquation(reactants, products)){
+            return null;
+        }
+
 
         return new ChemicalEquation(reactants, products);
+    }
+
+    private boolean stringArrayContainsInvalidString(String[] stringArray) {
+        for( int i = 0; i < stringArray.length; i++){
+            String cur = stringArray[i];
+            int parenthesisCount = 0;
+            boolean hasSeenUpper = false;
+
+            if(cur == null || cur.equals("") || cur.contains("()")){
+                return true;
+            }
+
+            for(int j = 0; j < cur.length(); j++ ){
+                if(cur.charAt(j) == '('){
+                    parenthesisCount++;
+                }
+
+                if(cur.charAt(j) == ')'){
+                    parenthesisCount--;
+                    if(j + 1 >= cur.length() || !Character.isDigit(cur.charAt(j + 1))){
+                        return true;
+                    }
+                }
+
+                if(parenthesisCount < 0){
+                    return true;
+                }
+
+                if(Character.isUpperCase(cur.charAt(j))){
+                    hasSeenUpper = true;
+                }
+
+                if(Character.isLowerCase(cur.charAt(j)) && !hasSeenUpper){
+                    return true;
+                }
+
+                if( !(Character.isAlphabetic(cur.charAt(j)) || Character.isDigit(cur.charAt(j)))){
+                    if( !(cur.charAt(j) == '(' || cur.charAt(j) == ')') ){
+                        return true;
+                    }
+                }
+            }
+
+            if(parenthesisCount != 0){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isInvalidEquation(List<Compound> reactants, List<Compound> products) {
+        for(Compound compound : reactants){
+            for(Element element : compound.getAllElements()){
+                boolean isInProducts = false;
+                for(Compound compound1 : products){
+                    if(compound1.contains(element)){
+                        isInProducts = true;
+                    }
+                }
+                if(!isInProducts){
+                    return true;
+                }
+            }
+        }
+
+        for(Compound compound : products){
+            for(Element element : compound.getAllElements()){
+                boolean isInReactants = false;
+                for(Compound compound1 : reactants){
+                    if(compound1.contains(element)){
+                        isInReactants = true;
+                    }
+                }
+                if(!isInReactants){
+                    return true;
+                }
+            }
+
+        }
+
+        return false;
     }
 
     private List<Compound> parseCompounds(String[] compoundStrings) {
@@ -30,6 +131,12 @@ public class InputParser {
         for(int i = 0; i < compoundStrings.length; i++){
             compounds.add(parseCompound(compoundStrings[i]));
         }
+
+        if(compounds.size() == 0){
+            System.out.println("size is bad");
+            return null;
+        }
+
         return compounds;
     }
 
@@ -42,7 +149,6 @@ public class InputParser {
 
         if(compoundString.contains("(")){
             int openParenthesisIndex = compoundString.indexOf("(");
-            //int closingParenthesisIndex = getClosingParenthesisIndex(compoundString.substring(openParenthesisIndex));
             int closingParenthesisIndex = getClosingParenthesisIndex(compoundString);
 
             int endOfSubscriptIndex = closingParenthesisIndex + 1;
@@ -62,7 +168,6 @@ public class InputParser {
             Compound before = parseCompound(compoundString.substring(0,openParenthesisIndex));
             Compound middle = parseCompound(compoundString.substring(openParenthesisIndex + 1, closingParenthesisIndex));
             Compound after = parseCompound(compoundString.substring(endOfSubscriptIndex + 1));
-
 
             for(Element element : middle.getAllElements()){
                 element.setSubscript(element.getSubscript() * mult);

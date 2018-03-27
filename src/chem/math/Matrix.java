@@ -1,11 +1,12 @@
 package chem.math;
 
 public interface Matrix {
-    float getValue(int i, int j);
-    void setValue(int i, int j, float value);
+    void setMatrix(float[][] newMatrix);
     int getNumRows();
     int getNumCols();
+
+    float getValue(int i, int j);
     float[] getRow(int rowIndex);
+    void setValue(int i, int j, float value);
     float[] solve(float[] b);
-    void setMatrix(float[][] newMatrix);
 }

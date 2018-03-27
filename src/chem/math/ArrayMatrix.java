@@ -16,13 +16,6 @@ public class ArrayMatrix  implements Matrix {
         solveStrategy = new GaussianEliminationStrategy();
     }
 
-    public ArrayMatrix(int rows, int cols, SolveStrategy solveStrategy){
-        this.rows = rows;
-        this.cols = cols;
-        this.solveStrategy = solveStrategy;
-        matrix = new float[rows][cols];
-    }
-
     @Override
     public float getValue(int i, int j) {
         return matrix[i][j];
