@@ -136,10 +136,6 @@ public class ArrayMatrixTest {
         float[] myAns = matrix.solve(b);
         float[] expectedAns = new float[]{3,2,1,6};
 
-        for(int i = 0; i < myAns.length; i++){
-            System.out.println(myAns[i]);
-        }
-
         assertArrayEquals(expectedAns, myAns, 0f);
     }
 }
